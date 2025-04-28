@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Countdown</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .image-section {
+      margin: 20px 0;
+      position: relative;
+      width: 300px;
+      height: 250px;
+    }
+
+    .image-section img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 3px solid white;
+      border-radius: 10px;
+      object-fit: cover;
+      opacity: 0;
+      animation: fadeEffect 30s infinite;
+    }
+
+    @keyframes fadeEffect {
+      0%, 20%, 100% { opacity: 0; }
+      10% { opacity: 1; }
+    }
+
+    .image-section img:nth-child(1) { animation-delay: 0s; }
+    .image-section img:nth-child(2) { animation-delay: 6s; }
+    .image-section img:nth-child(3) { animation-delay: 12s; }
+    .image-section img:nth-child(4) { animation-delay: 18s; }
+    .image-section img:nth-child(5) { animation-delay: 24s; }
+
+#countdown-box {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px 25px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px 0;
+  animation: ambientLight 6s infinite alternate ease-in-out;
+}
+
+@keyframes ambientLight {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(255, 0, 0, 0.7), 
+      5px 5px 30px rgba(0, 0, 255, 0.6);
+  }
+  25% {
+    box-shadow: 
+      -5px -5px 25px rgba(255, 0, 255, 0.8), 
+      10px 10px 40px rgba(0, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(0, 0, 255, 0.9), 
+      -5px 5px 35px rgba(255, 0, 0, 0.7);
+  }
+  75% {
+    box-shadow: 
+      5px -5px 35px rgba(0, 255, 255, 0.7), 
+      -10px 5px 25px rgba(255, 0, 255, 0.6);
+  }
+  100% {
+    box-shadow: 
+      0 0 20px rgba(255, 0, 0, 0.7), 
+      5px 5px 30px rgba(0, 0, 255, 0.6);
+  }
+}
+
+
+
+    #countdown-box h1 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    #countdown-box p {
+      font-size: 1.2rem;
+    }
+
+    .watermark {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .watermark a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .watermark a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Image Section -->
+  <div class="image-section">
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image2.jpg" alt="Image 2">
+    <img src="image3.jpg" alt="Image 3">
+    <img src="image4.jpg" alt="Image 4">
+    <img src="image5.jpg" alt="Image 5">
+  </div>
+
+  <!-- Countdown Section -->
+  <div id="countdown-box">
+    <h1>𝐂𝐨𝐮𝐧𝐭𝐝𝐨𝐰𝐧 𝐓𝐢𝐥𝐥 𝐆𝐚𝐧𝐞𝐬𝐡 𝐂𝐡𝐚𝐭𝐮𝐫𝐭𝐡𝐢 </h1>
+    <p id="timer"></p>
+  </div>
+
+  <!-- Bottom Image Section -->
+  <div class="image-section">
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image2.jpg" alt="Image 2">
+    <img src="image3.jpg" alt="Image 3">
+    <img src="image4.jpg" alt="Image 4">
+    <img src="image5.jpg" alt="Image 5">
+  </div>
+
+  <!-- Watermark -->
+  <div class="watermark">
+    Powered by <a href="https://t.me/botplays90" target="_blank">@botplays90</a>
+  </div>
+
+  <script>
+    // Countdown Timer
+    const countdownElement = document.getElementById('timer');
+    const targetDate = new Date('2025-08-27T00:00:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        countdownElement.innerHTML = "Event has started!";
+        clearInterval(countdownInterval);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
