@@ -50,44 +50,42 @@
     .image-section img:nth-child(4) { animation-delay: 18s; }
     .image-section img:nth-child(5) { animation-delay: 24s; }
 
-#countdown-box {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 20px 25px;
-  border-radius: 10px;
-  text-align: center;
-  margin: 20px 0;
-  animation: ambientLight 6s infinite alternate ease-in-out;
-}
+    #countdown-box {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px 25px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+      animation: ambientLight 6s infinite alternate ease-in-out;
+    }
 
-@keyframes ambientLight {
-  0% {
-    box-shadow: 
-      0 0 20px rgba(255, 0, 0, 0.7), 
-      5px 5px 30px rgba(0, 0, 255, 0.6);
-  }
-  25% {
-    box-shadow: 
-      -5px -5px 25px rgba(255, 0, 255, 0.8), 
-      10px 10px 40px rgba(0, 255, 255, 0.5);
-  }
-  50% {
-    box-shadow: 
-      0 0 30px rgba(0, 0, 255, 0.9), 
-      -5px 5px 35px rgba(255, 0, 0, 0.7);
-  }
-  75% {
-    box-shadow: 
-      5px -5px 35px rgba(0, 255, 255, 0.7), 
-      -10px 5px 25px rgba(255, 0, 255, 0.6);
-  }
-  100% {
-    box-shadow: 
-      0 0 20px rgba(255, 0, 0, 0.7), 
-      5px 5px 30px rgba(0, 0, 255, 0.6);
-  }
-}
-
-
+    @keyframes ambientLight {
+      0% {
+        box-shadow: 
+          0 0 20px rgba(255, 0, 0, 0.7), 
+          5px 5px 30px rgba(0, 0, 255, 0.6);
+      }
+      25% {
+        box-shadow: 
+          -5px -5px 25px rgba(255, 0, 255, 0.8), 
+          10px 10px 40px rgba(0, 255, 255, 0.5);
+      }
+      50% {
+        box-shadow: 
+          0 0 30px rgba(0, 0, 255, 0.9), 
+          -5px 5px 35px rgba(255, 0, 0, 0.7);
+      }
+      75% {
+        box-shadow: 
+          5px -5px 35px rgba(0, 255, 255, 0.7), 
+          -10px 5px 25px rgba(255, 0, 255, 0.6);
+      }
+      100% {
+        box-shadow: 
+          0 0 20px rgba(255, 0, 0, 0.7), 
+          5px 5px 30px rgba(0, 0, 255, 0.6);
+      }
+    }
 
     #countdown-box h1 {
       font-size: 1.5rem;
@@ -144,18 +142,38 @@
     Powered by <a href="https://t.me/botplays90" target="_blank">@botplays90</a>
   </div>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <script>
-    // Countdown Timer
     const countdownElement = document.getElementById('timer');
     const targetDate = new Date('2025-08-27T00:00:00').getTime();
+
+    function popFromBothSides() {
+      const duration = 3000;
+      const end = Date.now() + duration;
+
+      function shoot() {
+        confetti({ particleCount: 80, startVelocity: 55, spread: 55, angle: 60, origin: { x: 0, y: 0.6 }, ticks: 200 });
+        confetti({ particleCount: 80, startVelocity: 55, spread: 55, angle: 120, origin: { x: 1, y: 0.6 }, ticks: 200 });
+        confetti({ particleCount: 40, spread: 70, origin: { x: 0.2, y: 0 }, angle: 90, startVelocity: 45 });
+        confetti({ particleCount: 40, spread: 70, origin: { x: 0.8, y: 0 }, angle: 90, startVelocity: 45 });
+      }
+
+      shoot();
+      const interval = setInterval(() => {
+        if (Date.now() > end) clearInterval(interval);
+        else shoot();
+      }, 350);
+    }
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
       if (distance < 0) {
-        countdownElement.innerHTML = "Event has started!";
+        countdownElement.innerHTML = "🎉 Event has started!";
         clearInterval(countdownInterval);
+        popFromBothSides(); // trigger confetti at countdown end
         return;
       }
 
